@@ -1,11 +1,13 @@
 import * as React from 'react';
 import './styles/main.scss';
+import CreateCounter from './components/CreateCounter/CreateCounter';
 
 const App: React.FC = () => {
   return (
     <div>
-      <div className="App mt-2 text-2xl font-bold">Hello</div>
-      <div className="mt-2 text-gray-nanana">world!</div>
+      <div className="bg-gray-200 w-full h-screen overflow-auto">
+        <CreateCounter />
+      </div>
     </div>
   );
 };
