@@ -10,7 +10,7 @@ const ColorBox: React.FC<ColorBoxProps> = props => {
 
   return (
     <div
-      className="rounded p-3 bg-gray-800 ml-2 mb-2 border-white border-1"
+      className="rounded p-3 bg-gray-800 mr-2 mb-2 border-white border-1"
       style={{
         backgroundColor: color
       }}
