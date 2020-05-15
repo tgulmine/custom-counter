@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import './CreateCounter.scss';
 import ColorBox from '../ColorBox/ColorBox';
 
@@ -17,9 +17,20 @@ const CreateCounter: React.FC = () => {
     '#262949',
     '#1A1333'
   ];
+  const [activeColor, setActiveColor] = useState(colorList[0]);
+
+  function changeActiveColor(color: any) {
+    setActiveColor(color);
+    console.log(color);
+  }
 
   return (
-    <div className="flex-row font-bold text-xl ml-4 w-1/4 bg-red-300 rounded p-4 mt-4">
+    <div
+      className="flex-row font-bold text-xl ml-4 w-1/4 rounded p-4 mt-4"
+      style={{
+        backgroundColor: activeColor
+      }}
+    >
       <div className="text-2xl w-full text-black mr-auto ml-auto mb-4">New Counter</div>
       <div className="flex items-center mr-2 mt-2 w-full">
         <div className="text-black text-lg w-1/3 ml-2">Name</div>
@@ -41,7 +52,9 @@ const CreateCounter: React.FC = () => {
       </div>
       <div className="flex items-center mr-2 mt-2 w-full">
         <div className="text-black text-lg w-1/3 ml-2">Color</div>
-        <div className="flex flex-wrap w-2/3">{colorList && colorList.map((color, index) => <ColorBox color={colorList[index]} />)}</div>
+        <div className="flex flex-wrap w-2/3">
+          {colorList && colorList.map((color, index) => <ColorBox color={colorList[index]} changeActiveColor={changeActiveColor} />)}
+        </div>
       </div>
       <div className="flex mt-2">
         <button
