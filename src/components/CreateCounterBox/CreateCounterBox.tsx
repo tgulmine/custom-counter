@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import './CreateCounter.scss';
+import './CreateCounterBox.scss';
 import ColorBox from '../ColorBox/ColorBox';
 
-const CreateCounter: React.FC = () => {
+interface CreateCounterProps {
+  createCounter: (name: any, time: any, color: any) => void;
+}
+
+const CreateCounterBox: React.FC<CreateCounterProps> = props => {
   const colorList = [
     '#FBBF54',
     '#EE6B3B',
@@ -24,9 +28,18 @@ const CreateCounter: React.FC = () => {
     console.log(color);
   }
 
+  function clickCreate() {
+    var counterNameElem: HTMLInputElement = document.getElementById('counterName') as HTMLInputElement;
+    var counterNameValue: any = counterNameElem.value;
+    var counterTimeElem: HTMLInputElement = document.getElementById('counterTime') as HTMLInputElement;
+    var counterTimeValue: any = counterTimeElem.value;
+    console.log(counterNameValue, counterTimeValue, activeColor);
+    if (counterNameValue !== '') props.createCounter(counterNameValue, counterTimeValue, activeColor);
+  }
+
   return (
     <div
-      className="flex-row font-bold text-xl ml-4 w-1/4 rounded p-4 mt-4"
+      className="flex-row font-bold text-xl w-1/4 rounded p-4"
       style={{
         backgroundColor: activeColor
       }}
@@ -46,8 +59,9 @@ const CreateCounter: React.FC = () => {
         <input
           className="shadow border rounded py-2 px-3 text-gray-700 text-xl leading-tight focus:outline-none focus:shadow-blackOutline"
           type="time"
-          id="createTime"
+          id="counterTime"
           step="10"
+          defaultValue="00:00:00"
         />
       </div>
       <div className="flex items-center mr-2 mt-2 w-full">
@@ -60,6 +74,7 @@ const CreateCounter: React.FC = () => {
         <button
           className="bg-black hover:bg-gray-200 hover:text-black text-white text-xl font-bold mr-auto ml-auto py-2 px-4 rounded focus:outline-none focus:shadow-blackOutline"
           type="button"
+          onClick={() => clickCreate()}
         >
           Create
         </button>
@@ -68,4 +83,4 @@ const CreateCounter: React.FC = () => {
   );
 };
 
-export default CreateCounter;
+export default CreateCounterBox;
