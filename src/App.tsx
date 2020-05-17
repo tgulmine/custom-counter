@@ -6,7 +6,7 @@ import Counter from './components/Counter/Counter';
 const App: React.FC = () => {
   const [isCreated, setIsCreated] = useState(false);
   const [newCounterName, setNewCounterName] = useState(String);
-  const [newCounterTime, setNewCounterTime] = useState(null);
+  const [newCounterTime, setNewCounterTime] = useState(String);
   const [newCounterColor, setNewCounterColor] = useState(String);
 
   function createCounter(name: any, time: any, color: any) {
@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <div>
       <div className="bg-gray-200 w-full h-screen overflow-auto p-4">
-        <div className="w-full flex">
+        <div className="flex">
           <CreateCounterBox createCounter={createCounter} />
           {isCreated ? <Counter name={newCounterName} time={newCounterTime} color={newCounterColor} /> : null}
         </div>

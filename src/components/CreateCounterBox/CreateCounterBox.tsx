@@ -60,7 +60,7 @@ const CreateCounterBox: React.FC<CreateCounterProps> = props => {
           className="shadow border rounded py-2 px-3 text-gray-700 text-xl leading-tight focus:outline-none focus:shadow-blackOutline"
           type="time"
           id="counterTime"
-          step="10"
+          step="1"
           defaultValue="00:00:00"
         />
       </div>
