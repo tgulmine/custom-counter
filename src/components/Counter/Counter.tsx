@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Counter.scss';
 
 interface CounterProps {
@@ -18,7 +18,44 @@ const Counter: React.FC<CounterProps> = props => {
   if (time.length > 5) var seconds = parseInt(time.substr(6, 2), 10);
   else var seconds = 0;
 
+  const [isCountOver, setIsCountOver] = useState(false);
   var timer;
+  /* var currentHours = hours;
+  var currentMinutes = minutes; */
+  const [currentHours, setCurrentHours] = useState(hours);
+  const [currentMinutes, setCurrentMinutes] = useState(minutes);
+  const [currentSeconds, setCurrentSeconds] = useState(seconds);
+  /* var currentSeconds = seconds; */
+  setTimer();
+
+  useEffect(() => {
+    console.log('use');
+    if (props.clickedPlay) {
+      countDown();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.clickedPlay]);
+
+  function countDown() {
+    while (!isCountOver) {
+      setInterval(function() {
+        if (currentSeconds === 0 && currentMinutes > 0) {
+          setCurrentSeconds(59);
+          setCurrentMinutes(currentMinutes - 1);
+        } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours > 0) {
+          setCurrentSeconds(59);
+          setCurrentMinutes(59);
+          setCurrentHours(currentHours - 1);
+        } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours === 0) {
+          setIsCountOver(true);
+        } else {
+          setCurrentSeconds(currentSeconds - 1);
+        }
+
+        setTimer();
+      }, 1000);
+    }
+  }
 
   function addExtraZero(n: Number) {
     if (n < 10) {
@@ -28,16 +65,15 @@ const Counter: React.FC<CounterProps> = props => {
     }
   }
 
-  /*   function setTimer() { */
-  var h = addExtraZero(hours);
-  var m = addExtraZero(minutes);
-  var s = addExtraZero(seconds);
+  function setTimer() {
+    var h = addExtraZero(currentHours);
+    var m = addExtraZero(currentMinutes);
+    var s = addExtraZero(currentSeconds);
 
-  if (h === '00' && m === '00') timer = s;
-  else if (h === '00') timer = m + ':' + s;
-  else timer = h + ':' + m + ':' + s;
-
-  /*   } */
+    if (h === '00' && m === '00') timer = s;
+    else if (h === '00') timer = m + ':' + s;
+    else timer = h + ':' + m + ':' + s;
+  }
 
   return (
     <div
