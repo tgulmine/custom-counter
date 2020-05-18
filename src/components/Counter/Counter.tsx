@@ -5,6 +5,7 @@ interface CounterProps {
   name: string;
   time: string;
   color: string;
+  clickedPlay: Boolean;
 }
 
 const Counter: React.FC<CounterProps> = props => {
