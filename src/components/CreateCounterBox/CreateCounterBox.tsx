@@ -34,9 +34,12 @@ const CreateCounterBox: React.FC<CreateCounterProps> = props => {
     var counterTimeElem: HTMLInputElement = document.getElementById('counterTime') as HTMLInputElement;
     var counterTimeValue: any = counterTimeElem.value;
     console.log(counterNameValue, counterTimeValue, activeColor);
-    if (counterNameValue !== '') props.createCounter(counterNameValue, counterTimeValue, activeColor);
+    if (counterNameValue !== '' && counterTimeValue !== '00:00:00') {
+      props.createCounter(counterNameValue, counterTimeValue, activeColor);
+      counterNameElem.value = '';
+      counterTimeElem.value = '00:00:00';
+    }
   }
-
   return (
     <div
       className="flex-row font-bold text-xl w-1/4 rounded p-4"

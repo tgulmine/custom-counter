@@ -24,8 +24,7 @@ const Counter: React.FC<CounterProps> = props => {
   var currentMinutes = minutes;
   var currentSeconds = seconds;
 
-  const [timer, setTimer] = useState('');
-  /* getTimer(); */
+  const [timer, setTimer] = useState(getTimer());
   var timeout: NodeJS.Timeout;
 
   useEffect(() => {
@@ -57,7 +56,7 @@ const Counter: React.FC<CounterProps> = props => {
         console.log('b4');
         currentSeconds--;
       }
-      getTimer();
+      setTimer(getTimer());
     }, 1000);
   }
 
@@ -75,9 +74,9 @@ const Counter: React.FC<CounterProps> = props => {
     else var m = currentMinutes.toString();
     var s = addExtraZero(currentSeconds);
 
-    if (h === '0' && m === '0') setTimer(s);
-    else if (h === '0') setTimer(m + ':' + s);
-    else setTimer(h + ':' + m + ':' + s);
+    if (h === '0' && m === '0') return s;
+    else if (h === '0') return m + ':' + s;
+    else return h + ':' + m + ':' + s;
   }
 
   return (
