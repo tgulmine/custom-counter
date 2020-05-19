@@ -19,14 +19,14 @@ const Counter: React.FC<CounterProps> = props => {
   else var seconds = 0;
 
   const [isCountOver, setIsCountOver] = useState(false);
-  var timer;
-  /* var currentHours = hours;
-  var currentMinutes = minutes; */
-  const [currentHours, setCurrentHours] = useState(hours);
-  const [currentMinutes, setCurrentMinutes] = useState(minutes);
-  const [currentSeconds, setCurrentSeconds] = useState(seconds);
-  /* var currentSeconds = seconds; */
-  setTimer();
+
+  var currentHours = hours;
+  var currentMinutes = minutes;
+  var currentSeconds = seconds;
+
+  const [timer, setTimer] = useState('');
+  /* getTimer(); */
+  var timeout: NodeJS.Timeout;
 
   useEffect(() => {
     console.log('use');
@@ -37,24 +37,28 @@ const Counter: React.FC<CounterProps> = props => {
   }, [props.clickedPlay]);
 
   function countDown() {
-    while (!isCountOver) {
-      setInterval(function() {
-        if (currentSeconds === 0 && currentMinutes > 0) {
-          setCurrentSeconds(59);
-          setCurrentMinutes(currentMinutes - 1);
-        } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours > 0) {
-          setCurrentSeconds(59);
-          setCurrentMinutes(59);
-          setCurrentHours(currentHours - 1);
-        } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours === 0) {
-          setIsCountOver(true);
-        } else {
-          setCurrentSeconds(currentSeconds - 1);
-        }
-
-        setTimer();
-      }, 1000);
-    }
+    console.log('ab');
+    timeout = setInterval(function() {
+      console.log('a');
+      console.log(currentSeconds);
+      if (currentSeconds === 0 && currentMinutes > 0) {
+        console.log('b1');
+        currentSeconds = 59;
+        currentMinutes--;
+      } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours > 0) {
+        console.log('b2');
+        currentSeconds = 59;
+        currentMinutes = 59;
+        currentHours--;
+      } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours === 0) {
+        console.log('b3');
+        clearTimeout(timeout);
+      } else {
+        console.log('b4');
+        currentSeconds--;
+      }
+      getTimer();
+    }, 1000);
   }
 
   function addExtraZero(n: Number) {
@@ -65,14 +69,15 @@ const Counter: React.FC<CounterProps> = props => {
     }
   }
 
-  function setTimer() {
-    var h = addExtraZero(currentHours);
-    var m = addExtraZero(currentMinutes);
+  function getTimer() {
+    var h = currentHours.toString();
+    if (currentHours > 0) var m = addExtraZero(currentMinutes);
+    else var m = currentMinutes.toString();
     var s = addExtraZero(currentSeconds);
 
-    if (h === '00' && m === '00') timer = s;
-    else if (h === '00') timer = m + ':' + s;
-    else timer = h + ':' + m + ':' + s;
+    if (h === '0' && m === '0') setTimer(s);
+    else if (h === '0') setTimer(m + ':' + s);
+    else setTimer(h + ':' + m + ':' + s);
   }
 
   return (
