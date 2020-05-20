@@ -18,47 +18,7 @@ const Counter: React.FC<CounterProps> = props => {
   if (time.length > 5) var seconds = parseInt(time.substr(6, 2), 10);
   else var seconds = 0;
 
-  const [isCountOver, setIsCountOver] = useState(false);
-
-  var currentHours = hours;
-  var currentMinutes = minutes;
-  var currentSeconds = seconds;
-
-  const [timer, setTimer] = useState(getTimer());
-  var timeout: NodeJS.Timeout;
-
-  useEffect(() => {
-    console.log('use');
-    if (props.clickedPlay) {
-      countDown();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.clickedPlay]);
-
-  function countDown() {
-    console.log('ab');
-    timeout = setInterval(function() {
-      console.log('a');
-      console.log(currentSeconds);
-      if (currentSeconds === 0 && currentMinutes > 0) {
-        console.log('b1');
-        currentSeconds = 59;
-        currentMinutes--;
-      } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours > 0) {
-        console.log('b2');
-        currentSeconds = 59;
-        currentMinutes = 59;
-        currentHours--;
-      } else if (currentSeconds === 0 && currentMinutes === 0 && currentHours === 0) {
-        console.log('b3');
-        clearTimeout(timeout);
-      } else {
-        console.log('b4');
-        currentSeconds--;
-      }
-      setTimer(getTimer());
-    }, 1000);
-  }
+  var timer = getTimer();
 
   function addExtraZero(n: Number) {
     if (n < 10) {
@@ -69,10 +29,10 @@ const Counter: React.FC<CounterProps> = props => {
   }
 
   function getTimer() {
-    var h = currentHours.toString();
-    if (currentHours > 0) var m = addExtraZero(currentMinutes);
-    else var m = currentMinutes.toString();
-    var s = addExtraZero(currentSeconds);
+    var h = hours.toString();
+    if (hours > 0) var m = addExtraZero(minutes);
+    else var m = minutes.toString();
+    var s = addExtraZero(seconds);
 
     if (h === '0' && m === '0') return s;
     else if (h === '0') return m + ':' + s;
@@ -81,7 +41,7 @@ const Counter: React.FC<CounterProps> = props => {
 
   return (
     <div
-      className="flex-row w-1/2 ml-8 text-black font-bold p-4 mt-10 mb-10"
+      className="flex-row w-1/6 ml-4 text-black font-bold p-4 rounded"
       style={{
         backgroundColor: color
       }}

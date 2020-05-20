@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './styles/main.scss';
 import CreateCounterBox from './components/CreateCounterBox/CreateCounterBox';
-import Counter from './components/Counter/Counter';
+import ActiveCounter from './components/ActiveCounter/ActiveCounter';
 import PlayButton from './components/PlayButton/PlayButton';
+import Counter from './components/Counter/Counter';
 
 const App: React.FC = () => {
   const [isCreated, setIsCreated] = useState(false);
@@ -28,9 +29,14 @@ const App: React.FC = () => {
       <div className="bg-gray-200 w-full h-screen overflow-auto p-4">
         <div className="flex">
           <CreateCounterBox createCounter={createCounter} />
-          {isCreated ? <Counter name={newCounterName} time={newCounterTime} color={newCounterColor} clickedPlay={clickedPlay} /> : null}
+          {isCreated ? (
+            <ActiveCounter name={newCounterName} time={newCounterTime} color={newCounterColor} clickedPlay={clickedPlay} />
+          ) : null}
           {isCreated ? <PlayButton clickPlay={clickPlay} /> : null}
         </div>
+        {/* <div className="flex">
+          <Counter name={newCounterName} time={newCounterTime} color={newCounterColor} />
+        </div> */}
       </div>
     </div>
   );

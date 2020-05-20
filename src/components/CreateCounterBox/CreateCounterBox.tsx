@@ -42,7 +42,7 @@ const CreateCounterBox: React.FC<CreateCounterProps> = props => {
   }
   return (
     <div
-      className="flex-row font-bold text-xl w-1/4 rounded p-4"
+      className="flex-row font-bold text-xl w-1/4 rounded p-4 CreateCounterBox-main"
       style={{
         backgroundColor: activeColor
       }}
